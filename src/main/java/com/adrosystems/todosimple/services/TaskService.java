@@ -1,15 +1,17 @@
 package com.adrosystems.todosimple.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.adrosystems.todosimple.models.Task;
 import com.adrosystems.todosimple.models.User;
 import com.adrosystems.todosimple.repositories.TaskRepository;
 
-
+@Service 
 public class TaskService {
     @Autowired 
     private TaskRepository task;
@@ -20,6 +22,10 @@ public class TaskService {
     public Task findById(Long id) {
         Optional<Task> task = this.task.findById(id);
         return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada! Id: " + id + ", Tipo: " + Task.class.getName()));
+    }
+
+    public List<Task> findAllByUserId(Long id) {
+        return task.findByUser_Id(id);
     }
 
     @Transactional 

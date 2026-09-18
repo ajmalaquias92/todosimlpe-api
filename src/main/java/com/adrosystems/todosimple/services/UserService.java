@@ -2,18 +2,22 @@ package com.adrosystems.todosimple.services;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adrosystems.todosimple.models.User;
-import com.adrosystems.todosimple.repositories.TaskRepository;
+//!import com.adrosystems.todosimple.repositories.TaskRepository;
 import com.adrosystems.todosimple.repositories.UserRepository;
 
-import jakarta.transaction.Transactional;
 
 @Service 
 public class UserService {
+    @Autowired 
     private UserRepository user;
-    private TaskRepository task;
+
+    // @Autowired 
+    // private TaskRepository task;
 
     public User findById(Long id) {
         Optional<User> user = this.user.findById(id);
@@ -24,7 +28,7 @@ public class UserService {
     public User createUser(User user) {
         user.setId(null);
         user = this.user.save(user);
-        this.task.saveAll(user.getTasks());
+        //!this.task.saveAll(user.getTasks());
         return user;
     }
 
